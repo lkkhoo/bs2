@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,8 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/home', function () {return view('home');})->name('home');
 
-/*test*/
+Route::get('/admin',[AdminController::class, 'index'])->name('admin');
+Route::post('/admin',[AdminController::class, 'store']);
+
+Route::post('/logout',[AdminController::class, 'logout'])->name('logout');
+
+Route::get('/create_post',[AdminController::class, 'create_post'])->name('create_post');
+
+Route::get('/blog',[PostController::class, 'index'])->name('blog');
+Route::post('/blog',[PostController::class, 'store']);
+
+Route::redirect('/', '/home');
